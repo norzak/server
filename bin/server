@@ -3,7 +3,7 @@
 require('localenv');
 require('babel-register');
 
-const log = require('bookrc');
+const log = require('book');
 const debug = require('debug')('localtunnel');
 const optimist = require('optimist');
 
@@ -43,6 +43,14 @@ process.on('SIGINT', () => {
 
 process.on('SIGTERM', () => {
     process.exit();
+});
+
+process.on('uncaughtException', (err) => {
+    log.error(err);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    log.error(reason);
 });
 
 // vim: ft=javascript
